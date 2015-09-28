@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white">
+    <com.baoyz.swipemenulistview.SwipeMenuListView
+        android:id="@+id/listView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
+    <LinearLayout
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:id="@+id/no_exercise_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:gravity="center"
+            android:textColor="@android:color/darker_gray"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:text="No exercise added yet."/>
+        <TextView
+            android:gravity="center"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" />
+        <TextView
+            android:gravity="center"
+            android:textColor="@android:color/darker_gray"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:text="Please click + to create add exercise."/>
+    </LinearLayout>
+</RelativeLayout>

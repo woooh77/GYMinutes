@@ -1,0 +1,13 @@
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ulift="http://schemas.android.com/apk/res-auto"
+    tools:context=".MainActivity">
+    <item android:id="@+id/workout_summary"
+        android:icon="@drawable/summary"
+        android:title="Summary"
+        ulift:showAsAction="always"/>
+    <item android:id="@+id/add_workout"
+        android:icon="@drawable/add"
+        android:title="Add Workout"
+        ulift:showAsAction="always"/>
+</menu>

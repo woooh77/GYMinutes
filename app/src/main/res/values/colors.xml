@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#F29927</color>
+    <color name="colorPrimaryDark">#F29927</color>
+    <color name="violet">#313983</color>
+    <color name="orange">#F29927</color>
+    <color name="green">#43A675</color>
+    <color name="lightViolet">#4A5990</color>
+    <color name="Abs">#AE2620</color>
+    <color name="Arms">#792B9D</color>
+    <color name="Back">#C64020</color>
+    <color name="Chest">#2B3A6F</color>
+    <color name="Legs">#43A14E</color>
+    <color name="Shoulders">#CE3E49</color>
+    <color name="error_red">#FF0101</color>
+    <color name="white">#FFFFFF</color>
+    <color name="Red">#AE2620</color>
+    <color name="Blue">#2B3A6F</color>
+    <color name="Pink">#CE3E49</color>
+    <color name="Orange">#C64020</color>
+    <color name="Magenta">#FF00FF</color>
+    <color name="Brown">#AA7243</color>
+    <color name="Coffee">#5A352D</color>
+    <color name="Maroon">#FF34B3</color>
+    <color name="Mint">#98ff98</color>
+    <color name="black">#000000</color>
+</resources>

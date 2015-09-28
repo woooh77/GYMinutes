@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@drawable/shape"
+    android:layout_height="200dp"
+    android:weightSum="100">
+
+    <LinearLayout
+        android:layout_weight="20"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp">
+
+        <TextView
+            android:paddingLeft="10dp"
+            android:gravity="center_vertical"
+            android:textColor="@android:color/white"
+            android:id="@+id/workout_name"
+            android:text="EZ Bar Curl"
+            android:textSize="20dp"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" />
+
+    </LinearLayout>
+
+    <TextView
+        android:textSize="20dp"
+        android:text="PR: 11/11/11 (12 x 250 lbs)"
+        android:layout_weight="20"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:background="@color/green"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp" />
+
+    <TableLayout
+        android:padding="5dp"
+        android:layout_weight="60"
+        android:stretchColumns="*"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp">
+
+        <TableRow android:layout_weight="1">
+            <TextView />
+            <TextView
+                android:layout_height="fill_parent"
+                android:layout_width="fill_parent"
+                android:text="(11/11/11) Pre..."
+                android:textColor="@android:color/white"/>
+            <TextView
+                android:text="Today"
+                android:layout_height="fill_parent"
+                android:layout_width="fill_parent"
+                android:textColor="@android:color/white"/>
+        </TableRow>
+
+        <TableRow android:layout_weight="1">
+            <TextView
+                android:text="Sets"
+                android:layout_height="fill_parent"
+                android:layout_width="fill_parent"
+                android:textColor="@android:color/white"/>
+            <TextView
+                android:id="@+id/psets"
+                android:layout_height="fill_parent"
+                android:layout_width="fill_parent"
+                android:text="8"
+                android:textColor="@android:color/white"/>
+            <TextView
+                android:id="@+id/tsets"
+                android:layout_height="fill_parent"
+                android:layout_width="fill_parent"
+                android:text="12"
+                android:textColor="@android:color/white"/>
+        </TableRow>
+
+        <TableRow android:layout_weight="1">
+            <TextView
+                android:text="Max (lbs)"
+                android:layout_height="fill_parent"
+                android:layout_width="fill_parent"
+                android:textColor="@android:color/white"/>
+            <TextView
+                android:id="@+id/pmax"
+                android:layout_height="fill_parent"
+                android:layout_width="fill_parent"
+                android:text="12 x 100"
+                android:textColor="@android:color/white"/>
+            <TextView
+                android:id="@+id/tmax"
+                android:text="12 x 90"
+                android:layout_height="fill_parent"
+                android:layout_width="fill_parent"
+                android:textColor="@android:color/white"/>
+        </TableRow>
+
+        <TableRow android:layout_weight="1">
+            <TextView
+                android:text="Wt Moved (Lbs)"
+                android:layout_height="fill_parent"
+                android:layout_width="fill_parent"
+                android:textColor="@android:color/white"/>
+            <TextView
+                android:id="@+id/pweights"
+                android:layout_height="fill_parent"
+                android:layout_width="fill_parent"
+                android:text="1080"
+                android:textColor="@android:color/white"/>
+            <TextView
+                android:text="1200"
+                android:layout_height="fill_parent"
+                android:layout_width="fill_parent"
+                android:id="@+id/tweights"
+                android:textColor="@android:color/white"/>
+        </TableRow>
+    </TableLayout>
+</LinearLayout>
