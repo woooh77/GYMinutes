@@ -30,10 +30,10 @@ repositories {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:23.0.0'
     compile 'com.parse.bolts:bolts-android:1.+'
-    compile fileTree(dir: 'libs', include: 'Parse-*.jar')
+    compile fileTree(include: 'Parse-*.jar', dir: 'libs')
     compile project(':ParseLoginUI')
     compile 'com.vlonjatg.android:progress-activity:1.1.1'
     compile 'com.baoyz.swipemenulistview:library:1.2.1'
@@ -43,4 +43,5 @@ dependencies {
     compile 'com.baoyz.actionsheet:library:1.1.1'
     compile 'io.karim:materialtabs:2.0.2'
     compile 'com.jakewharton:butterknife:6.0.0'
+    compile project(':scroller')
 }

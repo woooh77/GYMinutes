@@ -11,7 +11,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -54,7 +53,6 @@ public class WorkoutActivity extends AppCompatActivity {
         setContentView(R.layout.workout_activity);
         pref = getSharedPreferences("Routine", Context.MODE_PRIVATE);
         routine_name = pref.getString("ROUTINE_NAME", "New Routine");
-        Log.e("PARSE", "ROUTINE NAME - " + routine_name);
         color = pref.getString("COLOR", "Red");
         listView = (SwipeMenuListView) findViewById(R.id.listView);
         getWorkoutsFromDB();

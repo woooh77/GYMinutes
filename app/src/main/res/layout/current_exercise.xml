@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="100">
+    <LinearLayout
+        android:layout_weight="10"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp">
+        <TextView
+            android:text=" Previous Exercise"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:textColor="@color/dark_blue"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent" />
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:layout_height="fill_parent">
+            <TextView
+                android:layout_weight="1"
+                android:text="Sets: 0/0"
+                android:textSize="18dp"
+                android:layout_gravity="center"
+                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp" />
+            <TextView
+                android:layout_weight="1"
+                android:text="00:00"
+                android:textSize="18dp"
+                android:layout_gravity="center"
+                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp" />
+        </LinearLayout>
+        <TextView
+            android:layout_weight="1"
+            android:gravity="center_vertical|right"
+            android:text="Next Exercise >"
+            android:textColor="@color/dark_blue"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_weight="45"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:background="@color/grey"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp">
+        <LinearLayout
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp">
+            <Button
+                android:id="@+id/remove_weight"
+                android:background="@color/button_green"
+                android:text="-"
+                android:textColor="@color/white"
+                android:layout_width="50dp"
+                android:layout_height="50dp" />
+            <LinearLayout
+                android:background="@color/white"
+                android:layout_width="70dp"
+                android:layout_height="50dp">
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    app:met_hideUnderline="true"
+                    android:gravity="center"
+                    app:met_floatingLabel="normal"
+                    android:id="@+id/weight"
+                    android:hint="Weight"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" />
+            </LinearLayout>
+            <Button
+                android:id="@+id/add_weight"
+                android:background="@color/button_green"
+                android:text="+"
+                android:textColor="@color/white"
+                android:layout_width="50dp"
+                android:layout_height="50dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp">
+            <Button
+                android:id="@+id/remove_sets"
+                android:background="@color/button_green"
+                android:text="-"
+                android:textColor="@color/white"
+                android:layout_width="50dp"
+                android:layout_height="50dp" />
+            <LinearLayout
+                android:background="@color/white"
+                android:layout_width="70dp"
+                android:layout_height="50dp">
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    app:met_hideUnderline="true"
+                    app:met_floatingLabel="normal"
+                    android:gravity="center"
+                    android:id="@+id/sets"
+                    android:hint="Sets"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" />
+            </LinearLayout>
+            <Button
+                android:id="@+id/add_sets"
+                android:background="@color/button_green"
+                android:text="+"
+                android:textColor="@color/white"
+                android:layout_width="50dp"
+                android:layout_height="50dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp">
+            <Button
+                android:text="Save"
+                android:textColor="@color/white"
+                android:background="@color/button_green"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginRight="30dp"/>
+            <Button
+                android:text="Clear"
+                android:textColor="@color/white"
+                android:background="@color/button_blue"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginLeft="30dp"/>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_weight="45"
+        android:weightSum="100"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp">
+        <LinearLayout
+            android:layout_weight="10"
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp">
+            <Button
+                android:background="@color/grey"
+                android:gravity="bottom|center"
+                android:textColor="@color/dark_grey"
+                android:layout_weight="1"
+                android:text="Last Workout"
+                android:textAllCaps="false"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent" />
+            <Button
+                android:background="@color/grey"
+                android:gravity="bottom|center"
+                android:textColor="@color/dark_grey"
+                android:layout_weight="1"
+                android:textAllCaps="false"
+                android:text="Personal Record"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent" />
+        </LinearLayout>
+        <TextView
+            android:gravity="center"
+            android:layout_weight="20"
+            android:textColor="@color/white"
+            android:background="@color/pinkisk_violet"
+            android:text="No Workout History"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp" />
+        <LinearLayout
+            android:layout_weight="50"
+            android:background="@color/white"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp">
+
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#B1B1B1" />
+        <LinearLayout
+            android:layout_weight="19"
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp">
+            <TextView
+                android:text="Seat (0)"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:textSize="20dp"
+                android:textColor="@color/Red"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent" />
+            <TextView
+                android:text="Hand (0)"
+                android:textSize="20dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/Red"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent" />
+            <TextView
+                android:text="Timer (0)"
+                android:textSize="20dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical|right"
+                android:textColor="@color/Red"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

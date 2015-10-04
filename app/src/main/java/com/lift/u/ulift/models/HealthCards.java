@@ -1,9 +1,12 @@
 package com.lift.u.ulift.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by balavigneshr on 8/14/15.
  */
-public class HealthCards {
+public class HealthCards implements Parcelable {
 
     public HealthCards(String workout, int sets, String max, int weight_moved) {
         this.workout = workout;
@@ -58,4 +61,34 @@ public class HealthCards {
                 ", weight_moved=" + weight_moved +
                 '}';
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(workout);
+        parcel.writeInt(sets);
+        parcel.writeString(max);
+        parcel.writeInt(weight_moved);
+    }
+
+    public HealthCards(Parcel in) {
+        workout = in.readString();
+        sets = in.readInt();
+        max = in.readString();
+        weight_moved = in.readInt();
+    }
+
+    public static final Parcelable.Creator<HealthCards> CREATOR = new Parcelable.Creator<HealthCards>() {
+        public HealthCards createFromParcel(Parcel in) {
+            return new HealthCards(in);
+        }
+
+        public HealthCards[] newArray(int size) {
+            return new HealthCards[size];
+        }
+    };
 }

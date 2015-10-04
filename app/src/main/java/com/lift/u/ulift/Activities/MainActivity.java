@@ -1,6 +1,8 @@
 package com.lift.u.ulift.Activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -11,12 +13,14 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.lift.u.ulift.Activities.Home.CurrentActivity;
 import com.lift.u.ulift.Activities.Home.SelectRoutineActivity;
+import com.lift.u.ulift.Adapters.DayArrayAdapter;
 import com.lift.u.ulift.Adapters.HealthCardAdapter;
 import com.lift.u.ulift.DBObjects.DatabaseHelper;
 import com.lift.u.ulift.DBObjects.FillLocalFromParse;
@@ -33,7 +37,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
+
+import antistatic.spinnerwheel.AbstractWheel;
 
 public class MainActivity extends AppCompatActivity {
     private static final int LOGIN_REQUEST = 0;
@@ -46,19 +51,36 @@ public class MainActivity extends AppCompatActivity {
     String routine;
     ArrayList<HealthCards> list = new ArrayList<>();
     HealthCardAdapter adapter;
+    SharedPreferences activity;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().setTitle(R.string.workout);
-        workout = getIntent().getStringExtra("WORKOUT");
-        routine = getIntent().getStringExtra("ROUTINE");
+        activity = getSharedPreferences("ROUTINE", Context.MODE_PRIVATE);
+        if (activity != null) {
+            routine = activity.getString("ROUTINE_NAME", null);
+            workout = activity.getString("WORKOUT_NAME", null);
+        }
+        final AbstractWheel day = (AbstractWheel) findViewById(R.id.hour_horizontal);
+        DayArrayAdapter dayAdapter = new DayArrayAdapter(this, calendar);
+        day.setViewAdapter(dayAdapter);
+        day.setCurrentItem(dayAdapter.getToday());
 
         adapter = new HealthCardAdapter(this, list);
-        ListView cards = (ListView) findViewById(R.id.cards);
+        final ListView cards = (ListView) findViewById(R.id.cards);
         cards.setAdapter(adapter);
-
+        cards.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(getApplicationContext(), CurrentActivity.class);
+                Bundle b = new Bundle();
+                b.putParcelableArrayList("CARDS", list);
+                intent.putExtras(b);
+                startActivity(intent);
+            }
+        });
         if (workout != null && !workout.isEmpty() && routine != null && !routine.isEmpty())
             getNumbersFromDb();
 
@@ -67,42 +89,42 @@ public class MainActivity extends AppCompatActivity {
         checkUser();
         workoutSummary = (SlidingPaneLayout) findViewById(R.id.workout_summary);
         workoutSummary.setVisibility(View.GONE);
-        dateText = (TextView) findViewById(R.id.date);
-        getCurrentDate();
-
-        Button previous = (Button) findViewById(R.id.left);
-        previous.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String dateToParse = dateText.getText().toString();
-                dateText = (TextView) findViewById(R.id.date);
-                try {
-                    Date myDate = sdf.parse(dateToParse);
-                    calendar.setTime(myDate);
-                    calendar.add(Calendar.DAY_OF_YEAR, -1);
-                    dateText.setText(sdf.format(calendar.getTime()));
-                } catch (Exception e) {
-                    Log.e("Previous Date Error", e.getMessage());
-                }
-            }
-        });
-
-        Button next = (Button) findViewById(R.id.right);
-        next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String dateToParse = dateText.getText().toString();
-                dateText = (TextView) findViewById(R.id.date);
-                try {
-                    Date myDate = sdf.parse(dateToParse);
-                    calendar.setTime(myDate);
-                    calendar.add(Calendar.DAY_OF_YEAR, 1);
-                    dateText.setText(sdf.format(calendar.getTime()));
-                } catch (Exception e) {
-                    Log.e("Next Date Error", e.getMessage());
-                }
-            }
-        });
+//        dateText = (TextView) findViewById(R.id.date);
+//        getCurrentDate();
+//
+//        Button previous = (Button) findViewById(R.id.left);
+//        previous.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String dateToParse = dateText.getText().toString();
+//                dateText = (TextView) findViewById(R.id.date);
+//                try {
+//                    Date myDate = sdf.parse(dateToParse);
+//                    calendar.setTime(myDate);
+//                    calendar.add(Calendar.DAY_OF_YEAR, -1);
+//                    dateText.setText(sdf.format(calendar.getTime()));
+//                } catch (Exception e) {
+//                    Log.e("Previous Date Error", e.getMessage());
+//                }
+//            }
+//        });
+//
+//        Button next = (Button) findViewById(R.id.right);
+//        next.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String dateToParse = dateText.getText().toString();
+//                dateText = (TextView) findViewById(R.id.date);
+//                try {
+//                    Date myDate = sdf.parse(dateToParse);
+//                    calendar.setTime(myDate);
+//                    calendar.add(Calendar.DAY_OF_YEAR, 1);
+//                    dateText.setText(sdf.format(calendar.getTime()));
+//                } catch (Exception e) {
+//                    Log.e("Next Date Error", e.getMessage());
+//                }
+//            }
+//        });
     }
 
     private void getCurrentDate() {

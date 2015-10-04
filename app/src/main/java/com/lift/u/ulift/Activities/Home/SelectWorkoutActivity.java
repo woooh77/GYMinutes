@@ -8,7 +8,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -32,7 +31,6 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 public class SelectWorkoutActivity extends AppCompatActivity {
     SwipeMenuListView listView;
     String routine_name, color;
-    SharedPreferences pref;
     ArrayList<String> workouts = new ArrayList<>();
     ArrayAdapter<String> adapter;
     LinearLayout no_workout;
@@ -41,10 +39,8 @@ public class SelectWorkoutActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.workout_activity);
-        pref = getSharedPreferences("Routine", Context.MODE_PRIVATE);
-        routine_name = pref.getString("ROUTINE_NAME", "New Routine");
-        Log.e("PARSE", "ROUTINE NAME - " + routine_name);
-        color = pref.getString("COLOR", "Red");
+        routine_name = getIntent().getStringExtra("ROUTINE_NAME");
+        color = getIntent().getStringExtra("COLOR");
         listView = (SwipeMenuListView) findViewById(R.id.listView);
         getWorkoutsFromDB();
 
@@ -80,8 +76,12 @@ public class SelectWorkoutActivity extends AppCompatActivity {
                             public void onClick(SweetAlertDialog sDialog) {
                                 sDialog.dismissWithAnimation();
                                 Intent intent = new Intent(SelectWorkoutActivity.this, MainActivity.class);
-                                intent.putExtra("ROUTINE", routine_name);
-                                intent.putExtra("WORKOUT", workouts.get(position));
+                                SharedPreferences activity = getSharedPreferences("ROUTINE", Context.MODE_PRIVATE);
+                                activity.edit().clear().commit();
+                                SharedPreferences.Editor edit = activity.edit();
+                                edit.putString("ROUTINE_NAME", routine_name);
+                                edit.putString("WORKOUT_NAME", workouts.get(position));
+                                edit.commit();
                                 startActivity(intent);
                             }
                         });

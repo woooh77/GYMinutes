@@ -24,4 +24,10 @@
     <color name="Maroon">#FF34B3</color>
     <color name="Mint">#98ff98</color>
     <color name="black">#000000</color>
+    <color name="grey">#EDEAF2</color>
+    <color name="dark_blue">#2E4F90</color>
+    <color name="button_green">#43A575</color>
+    <color name="button_blue">#2C83BD</color>
+    <color name="dark_grey">#4D5254</color>
+    <color name="pinkisk_violet">#853EA3</color>
 </resources>

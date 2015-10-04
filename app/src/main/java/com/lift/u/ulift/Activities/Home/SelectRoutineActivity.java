@@ -52,14 +52,9 @@ public class SelectRoutineActivity extends AppCompatActivity {
                                             public void onItemClick(AdapterView<?> parent, View view, int position,
                                                                     long id) {
                                                 SelectRoutines routine_selected = routinesList.get(position);
-                                                String routine_name = routine_selected.getRoutine_name();
-                                                String color = routine_selected.getColor();
-                                                SharedPreferences pref = getSharedPreferences("Routine", Context.MODE_PRIVATE);
-                                                SharedPreferences.Editor edit = pref.edit();
-                                                edit.putString("ROUTINE_NAME", routine_name);
-                                                edit.putString("COLOR", color);
-                                                edit.commit();
                                                 Intent intent = new Intent(getBaseContext(), SelectWorkoutActivity.class);
+                                                intent.putExtra("ROUTINE_NAME", routine_selected.getRoutine_name());
+                                                intent.putExtra("COLOR", routine_selected.getColor());
                                                 startActivity(intent);
                                             }
                                         }
