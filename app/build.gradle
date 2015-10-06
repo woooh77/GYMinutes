@@ -44,4 +44,5 @@ dependencies {
     compile 'io.karim:materialtabs:2.0.2'
     compile 'com.jakewharton:butterknife:6.0.0'
     compile project(':scroller')
+    compile 'com.code-troopers.betterpickers:library:2.1.0'
 }

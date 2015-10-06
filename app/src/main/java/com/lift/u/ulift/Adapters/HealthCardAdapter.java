@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
+import android.widget.TableLayout;
 import android.widget.TextView;
 
 import com.lift.u.ulift.R;
@@ -31,10 +33,14 @@ public class HealthCardAdapter extends ArrayAdapter<HealthCards> {
         View rowView = inflater.inflate(R.layout.health_cards, parent, false);
         TextView workout_name = (TextView) rowView.findViewById(R.id.workout_name);
         TextView sets = (TextView) rowView.findViewById(R.id.psets);
+        LinearLayout l1 = (LinearLayout) rowView.findViewById(R.id.l1);
+        TableLayout t1 = (TableLayout) rowView.findViewById(R.id.t1);
         HealthCards health_card = values.get(position);
         if (health_card != null) {
             workout_name.setText(health_card.getWorkout());
             sets.setText(String.valueOf(health_card.getSets()));
+            l1.setBackgroundResource(rowView.getResources().getIdentifier(health_card.getColor(), "color", "com.lift.u.ulift"));
+            t1.setBackgroundResource(rowView.getResources().getIdentifier(health_card.getColor(), "color", "com.lift.u.ulift"));
         }
         return rowView;
     }

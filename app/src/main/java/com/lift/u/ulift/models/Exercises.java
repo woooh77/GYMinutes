@@ -23,6 +23,10 @@ public class Exercises {
         return exerciseName;
     }
 
+    public void setExerciseName(String exerciseName) {
+        this.exerciseName = exerciseName;
+    }
+
     public int getSets() {
         return sets;
     }
@@ -31,11 +35,27 @@ public class Exercises {
         this.sets = sets;
     }
 
+    public int getReps() {
+        return reps;
+    }
+
+    public void setReps(int reps) {
+        this.reps = reps;
+    }
+
     public int getRestTimer() {
         return restTimer;
     }
 
+    public void setRestTimer(int restTimer) {
+        this.restTimer = restTimer;
+    }
+
     public String getColor() {
         return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 }

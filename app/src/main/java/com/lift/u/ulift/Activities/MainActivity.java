@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.v4.widget.SlidingPaneLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -45,13 +44,13 @@ public class MainActivity extends AppCompatActivity {
     Calendar calendar = Calendar.getInstance();
     DateFormat sdf = new SimpleDateFormat("EEE dd, MMM yyyy");
     TextView dateText;
-    SlidingPaneLayout workoutSummary;
     DatabaseHelper dbHelper;
     String workout;
     String routine;
     ArrayList<HealthCards> list = new ArrayList<>();
     HealthCardAdapter adapter;
     SharedPreferences activity;
+    AbstractWheel day;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -63,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
             routine = activity.getString("ROUTINE_NAME", null);
             workout = activity.getString("WORKOUT_NAME", null);
         }
-        final AbstractWheel day = (AbstractWheel) findViewById(R.id.hour_horizontal);
+        day = (AbstractWheel) findViewById(R.id.hour_horizontal);
         DayArrayAdapter dayAdapter = new DayArrayAdapter(this, calendar);
         day.setViewAdapter(dayAdapter);
         day.setCurrentItem(dayAdapter.getToday());
@@ -78,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
                 Bundle b = new Bundle();
                 b.putParcelableArrayList("CARDS", list);
                 intent.putExtras(b);
+                intent.putExtra("I", i);
                 startActivity(intent);
             }
         });
@@ -87,8 +87,6 @@ public class MainActivity extends AppCompatActivity {
         if (ParseUser.getCurrentUser() != null)
             buildDrawer();
         checkUser();
-        workoutSummary = (SlidingPaneLayout) findViewById(R.id.workout_summary);
-        workoutSummary.setVisibility(View.GONE);
 //        dateText = (TextView) findViewById(R.id.date);
 //        getCurrentDate();
 //
@@ -142,7 +140,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void checkUser() {
         if (ParseUser.getCurrentUser() == null) {
-            Log.d("PARSE", "User not logged in");
             ParseLoginBuilder builder = new ParseLoginBuilder(MainActivity.this);
             startActivityForResult(builder.build(), LOGIN_REQUEST);
         }
@@ -159,7 +156,6 @@ public class MainActivity extends AppCompatActivity {
                 ProgressActivity progressActivity = (ProgressActivity) findViewById(R.id.progressActivity);
                 progressActivity.showLoading();
                 dbHelper = new DatabaseHelper(this);
-                Log.d("PARSE","2");
                 FillLocalFromParse.fromParseToLocal(dbHelper);
                 progressActivity.showContent();
                 homescreen.setVisibility(View.VISIBLE);
@@ -175,8 +171,8 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, SelectRoutineActivity.class);
                 startActivity(intent);
                 return true;
-            case R.id.workout_summary:
-                workoutSummary.setVisibility((workoutSummary.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE));
+            case R.id.menu_share_item:
+                // Share
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -194,7 +190,8 @@ public class MainActivity extends AppCompatActivity {
             for (int i = 0; i < c.getCount(); i++) {
                 String exercise_name = c.getString(c.getColumnIndexOrThrow(Tables.UserWorkout.ExerciseName));
                 String sets = c.getString(c.getColumnIndexOrThrow(Tables.UserWorkout.Sets));
-                list.add(new HealthCards(exercise_name, Integer.parseInt(sets), "100", 100));
+                String color = c.getString(c.getColumnIndexOrThrow(Tables.UserWorkout.MajorMuscle));
+                list.add(new HealthCards(exercise_name, Integer.parseInt(sets), "100", 100, color));
                 c.moveToNext();
             }
         }
@@ -204,6 +201,7 @@ public class MainActivity extends AppCompatActivity {
     public void buildDrawer() {
         final ResideMenu resideMenu = new ResideMenu(this);
         resideMenu.setBackground(R.color.orange);
+        resideMenu.setShadowVisible(true);
         resideMenu.setSwipeDirectionDisable(ResideMenu.DIRECTION_RIGHT);
         resideMenu.attachToActivity(this);
         String titles[] = { getResources().getString(R.string.home), getResources().getString(R.string.profile), getResources().getString(R.string.analyze),
@@ -232,5 +230,14 @@ public class MainActivity extends AppCompatActivity {
             });
             resideMenu.addMenuItem(item, ResideMenu.DIRECTION_LEFT);
         }
+        if (day != null)
+            resideMenu.addIgnoredView(day);
     }
+
+    @Override
+    public void onBackPressed()
+    {
+        moveTaskToBack(true);
+    }
+
 }

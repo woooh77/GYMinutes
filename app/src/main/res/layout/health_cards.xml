@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:background="@drawable/shape"
     android:layout_height="200dp"
     android:weightSum="100">
 
     <LinearLayout
+        android:id="@+id/l1"
         android:layout_weight="20"
         android:layout_width="fill_parent"
         android:layout_height="0dp">
@@ -28,11 +28,12 @@
         android:layout_weight="20"
         android:gravity="center"
         android:textColor="@android:color/white"
-        android:background="@color/green"
+        android:background="@color/orange"
         android:layout_width="fill_parent"
         android:layout_height="0dp" />
 
     <TableLayout
+        android:id="@+id/t1"
         android:padding="5dp"
         android:layout_weight="60"
         android:stretchColumns="*"

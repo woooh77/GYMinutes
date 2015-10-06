@@ -238,7 +238,6 @@ public class WorkoutActivity extends AppCompatActivity {
         String[] selectionArgs = {workouts.get(position)};
         wdb.delete(Tables.UserWorkout.table_name, selection, selectionArgs);
         workouts.remove(position);
-        adapter.remove(adapter.getItem(position));
         adapter.notifyDataSetChanged();
         if (workouts.size() == 0)
             no_workout.setVisibility(View.VISIBLE);

@@ -1,32 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="50dp"
+    android:layout_width="50dp"
+    android:layout_height="60dp"
     android:orientation="vertical"
     android:weightSum="100">
     <LinearLayout
+        android:orientation="horizontal"
         android:layout_weight="70"
+        android:layout_gravity="center"
+        android:gravity="center|bottom"
         android:layout_width="fill_parent"
         android:layout_height="0dp">
         <TextView android:id="@+id/time2_day"
+            android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="15dp"
+            android:textSize="20dp"
             android:textAllCaps="true"
             android:text="30"
             android:lines="1"
-            android:layout_gravity="bottom"/>
+            android:gravity="center"/>
         <TextView android:id="@+id/time2_weekday"
+            android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="8dp"
+            android:textSize="12dp"
+            android:gravity="center"
             android:textAllCaps="true"
             android:text="Sun"
-            android:lines="1"
-            android:layout_gravity="bottom"/>
+            android:lines="1" />
     </LinearLayout>
     <TextView
         android:layout_weight="30"
+        android:textColor="@color/black"
         android:id="@+id/time2_monthday"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -34,6 +40,6 @@
         android:lines="1"
         android:text="Oct 4"
         android:textAllCaps="true"
-        android:textSize="8dp"
-        android:gravity="center"/>
+        android:textSize="12dp"
+        android:gravity="center|top"/>
 </LinearLayout>

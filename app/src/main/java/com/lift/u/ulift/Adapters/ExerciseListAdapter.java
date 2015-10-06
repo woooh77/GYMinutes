@@ -39,8 +39,8 @@ public class ExerciseListAdapter extends ArrayAdapter<Exercises> {
         TextView restTimer = (TextView) rowView.findViewById(R.id.restTimer);
         exerciseName.setText(exercises.getExerciseName());
         sets.setText(Integer.toString(exercises.getSets()));
-        reps.setText(Integer.toString(exercises.getSets()));
-        restTimer.setText(Integer.toString(exercises.getSets()));
+        reps.setText(Integer.toString(exercises.getReps()));
+        restTimer.setText(Integer.toString(exercises.getRestTimer()));
         return rowView;
     }
 }

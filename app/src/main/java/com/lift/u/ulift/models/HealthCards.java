@@ -8,17 +8,27 @@ import android.os.Parcelable;
  */
 public class HealthCards implements Parcelable {
 
-    public HealthCards(String workout, int sets, String max, int weight_moved) {
+    public HealthCards(String workout, int sets, String max, int weight_moved, String color) {
         this.workout = workout;
         this.sets = sets;
         this.max = max;
         this.weight_moved = weight_moved;
+        this.color = color;
     }
 
     public String workout;
     public int sets;
     public String max;
     public int weight_moved;
+    public String color;
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
 
     public String getWorkout() {
         return workout;
@@ -73,6 +83,7 @@ public class HealthCards implements Parcelable {
         parcel.writeInt(sets);
         parcel.writeString(max);
         parcel.writeInt(weight_moved);
+        parcel.writeString(color);
     }
 
     public HealthCards(Parcel in) {
@@ -80,6 +91,7 @@ public class HealthCards implements Parcelable {
         sets = in.readInt();
         max = in.readString();
         weight_moved = in.readInt();
+        color = in.readString();
     }
 
     public static final Parcelable.Creator<HealthCards> CREATOR = new Parcelable.Creator<HealthCards>() {

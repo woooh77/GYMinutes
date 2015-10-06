@@ -2,10 +2,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:ulift="http://schemas.android.com/apk/res-auto"
     tools:context=".MainActivity">
-    <item android:id="@+id/workout_summary"
-        android:icon="@drawable/summary"
-        android:title="Summary"
-        ulift:showAsAction="always"/>
+    <item android:id="@+id/menu_share_item"
+        ulift:showAsAction="always"
+        android:icon="@drawable/share"
+        android:title="Share"
+        android:actionProviderClass="android.widget.ShareActionProvider"/>
     <item android:id="@+id/add_workout"
         android:icon="@drawable/add"
         android:title="Add Workout"
