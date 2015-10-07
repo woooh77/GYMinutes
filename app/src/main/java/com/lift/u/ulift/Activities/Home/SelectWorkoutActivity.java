@@ -20,6 +20,7 @@ import com.lift.u.ulift.Activities.MainActivity;
 import com.lift.u.ulift.DBObjects.DatabaseHelper;
 import com.lift.u.ulift.DBObjects.Tables;
 import com.lift.u.ulift.R;
+import com.nhaarman.listviewanimations.appearance.simple.ScaleInAnimationAdapter;
 
 import java.util.ArrayList;
 
@@ -34,7 +35,7 @@ public class SelectWorkoutActivity extends AppCompatActivity {
     ArrayList<String> workouts = new ArrayList<>();
     ArrayAdapter<String> adapter;
     LinearLayout no_workout;
-
+    ScaleInAnimationAdapter animationAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +60,9 @@ public class SelectWorkoutActivity extends AppCompatActivity {
                 return textView;
             }
         };
-        listView.setAdapter(adapter);
+        animationAdapter = new ScaleInAnimationAdapter(adapter);
+        animationAdapter.setAbsListView(listView);
+        listView.setAdapter(animationAdapter);
 
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener()

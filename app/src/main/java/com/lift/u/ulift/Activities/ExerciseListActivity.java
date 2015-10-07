@@ -25,6 +25,7 @@ import com.lift.u.ulift.DBObjects.DatabaseHelper;
 import com.lift.u.ulift.DBObjects.Tables;
 import com.lift.u.ulift.R;
 import com.lift.u.ulift.models.Exercises;
+import com.nhaarman.listviewanimations.appearance.simple.ScaleInAnimationAdapter;
 
 import java.util.ArrayList;
 
@@ -41,6 +42,7 @@ public class ExerciseListActivity extends AppCompatActivity {
     ArrayList<Exercises> exerciseList = new ArrayList<>();
     ExerciseListAdapter adapter;
     LinearLayout no_exercise_layout;
+    ScaleInAnimationAdapter animationAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,7 +111,9 @@ public class ExerciseListActivity extends AppCompatActivity {
         if (exerciseList.size() != 0) {
             no_exercise_layout.setVisibility(View.GONE);
             adapter = new ExerciseListAdapter(this, exerciseList);
-            listView.setAdapter(adapter);
+            animationAdapter = new ScaleInAnimationAdapter(adapter);
+            animationAdapter.setAbsListView(listView);
+            listView.setAdapter(animationAdapter);
         } else {
             no_exercise_layout.setVisibility(View.VISIBLE);
         }
@@ -168,7 +172,9 @@ public class ExerciseListActivity extends AppCompatActivity {
         String[] selectionArgs = {exerciseList.get(position).getExerciseName()};
         wdb.delete(Tables.UserWorkout.table_name, selection, selectionArgs);
         exerciseList.remove(position);
+        adapter.remove(adapter.getItem(position));
         adapter.notifyDataSetChanged();
+        animationAdapter.notifyDataSetChanged();
         if (exerciseList.size() == 0)
             no_exercise_layout.setVisibility(View.VISIBLE);
     }

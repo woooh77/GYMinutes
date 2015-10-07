@@ -30,6 +30,7 @@ import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.lift.u.ulift.DBObjects.DatabaseHelper;
 import com.lift.u.ulift.DBObjects.Tables;
 import com.lift.u.ulift.R;
+import com.nhaarman.listviewanimations.appearance.simple.ScaleInAnimationAdapter;
 
 import java.util.ArrayList;
 
@@ -46,6 +47,7 @@ public class WorkoutActivity extends AppCompatActivity {
     String workout = "";
     ArrayAdapter<String> adapter;
     LinearLayout no_workout;
+    ScaleInAnimationAdapter animationAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,7 +125,9 @@ public class WorkoutActivity extends AppCompatActivity {
                 return textView;
             }
         };
-        listView.setAdapter(adapter);
+        animationAdapter = new ScaleInAnimationAdapter(adapter);
+        animationAdapter.setAbsListView(listView);
+        listView.setAdapter(animationAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
 
         {
@@ -239,6 +243,7 @@ public class WorkoutActivity extends AppCompatActivity {
         wdb.delete(Tables.UserWorkout.table_name, selection, selectionArgs);
         workouts.remove(position);
         adapter.notifyDataSetChanged();
+        animationAdapter.notifyDataSetChanged();
         if (workouts.size() == 0)
             no_workout.setVisibility(View.VISIBLE);
     }

@@ -28,6 +28,7 @@ import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.lift.u.ulift.DBObjects.DatabaseHelper;
 import com.lift.u.ulift.DBObjects.Tables;
 import com.lift.u.ulift.R;
+import com.nhaarman.listviewanimations.appearance.simple.ScaleInAnimationAdapter;
 import com.special.ResideMenu.ResideMenu;
 import com.special.ResideMenu.ResideMenuItem;
 
@@ -44,6 +45,7 @@ public class RoutineActivity extends AppCompatActivity {
     SwipeMenuListView listView;
     LinkedHashMap<String, String> routine_list = new LinkedHashMap<>();
     ArrayAdapter<String> itemsAdapter;
+    ScaleInAnimationAdapter animationAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -137,7 +139,9 @@ public class RoutineActivity extends AppCompatActivity {
                 return textView;
             }
         };
-        listView.setAdapter(itemsAdapter);
+        animationAdapter = new ScaleInAnimationAdapter(itemsAdapter);
+        animationAdapter.setAbsListView(listView);
+        listView.setAdapter(animationAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                             @Override
                                             public void onItemClick(AdapterView<?> parent, View view, int position,
@@ -168,6 +172,7 @@ public class RoutineActivity extends AppCompatActivity {
         routine_list.remove(new ArrayList<>(routine_list.keySet()).get(position));
         itemsAdapter.remove(itemsAdapter.getItem(position));
         itemsAdapter.notifyDataSetChanged();
+        animationAdapter.notifyDataSetChanged();
         if (routine_list.size() == 0)
             no_routine.setVisibility(View.VISIBLE);
     }

@@ -19,6 +19,7 @@ import com.lift.u.ulift.DBObjects.DatabaseHelper;
 import com.lift.u.ulift.DBObjects.Tables;
 import com.lift.u.ulift.R;
 import com.lift.u.ulift.models.SelectRoutines;
+import com.nhaarman.listviewanimations.appearance.simple.ScaleInAnimationAdapter;
 
 import java.util.ArrayList;
 
@@ -32,6 +33,7 @@ public class SelectRoutineActivity extends AppCompatActivity {
     SwipeMenuListView listView;
     SelectRoutineAdapter itemsAdapter;
     SQLiteDatabase rdb;
+    ScaleInAnimationAdapter animationAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,8 +47,9 @@ public class SelectRoutineActivity extends AppCompatActivity {
         getRoutines();
 
         itemsAdapter = new SelectRoutineAdapter(this, routinesList);
-
-        listView.setAdapter(itemsAdapter);
+        animationAdapter = new ScaleInAnimationAdapter(itemsAdapter);
+        animationAdapter.setAbsListView(listView);
+        listView.setAdapter(animationAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                             @Override
                                             public void onItemClick(AdapterView<?> parent, View view, int position,

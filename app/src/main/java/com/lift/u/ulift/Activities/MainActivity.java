@@ -26,6 +26,7 @@ import com.lift.u.ulift.DBObjects.FillLocalFromParse;
 import com.lift.u.ulift.DBObjects.Tables;
 import com.lift.u.ulift.R;
 import com.lift.u.ulift.models.HealthCards;
+import com.nhaarman.listviewanimations.appearance.simple.ScaleInAnimationAdapter;
 import com.parse.ParseUser;
 import com.parse.ui.ParseLoginBuilder;
 import com.special.ResideMenu.ResideMenu;
@@ -51,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
     HealthCardAdapter adapter;
     SharedPreferences activity;
     AbstractWheel day;
+    ScaleInAnimationAdapter animationAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -69,7 +71,9 @@ public class MainActivity extends AppCompatActivity {
 
         adapter = new HealthCardAdapter(this, list);
         final ListView cards = (ListView) findViewById(R.id.cards);
-        cards.setAdapter(adapter);
+        animationAdapter = new ScaleInAnimationAdapter(adapter);
+        animationAdapter.setAbsListView(cards);
+        cards.setAdapter(animationAdapter);
         cards.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -196,6 +200,8 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         adapter.notifyDataSetChanged();
+        animationAdapter.notifyDataSetChanged();
+
     }
 
     public void buildDrawer() {

@@ -16,6 +16,7 @@ import com.lift.u.ulift.Adapters.MuscleListAdapter;
 import com.lift.u.ulift.DBObjects.DatabaseHelper;
 import com.lift.u.ulift.DBObjects.Tables;
 import com.lift.u.ulift.R;
+import com.nhaarman.listviewanimations.appearance.simple.ScaleInAnimationAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,8 @@ public class MuscleActivity extends AppCompatActivity {
     ListView listView;
     List<String> muscle_list = new ArrayList<>();
     int height;
+    ScaleInAnimationAdapter animationAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +37,9 @@ public class MuscleActivity extends AppCompatActivity {
         height = ((WindowManager)getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getHeight();
         listView = (ListView) findViewById(R.id.listView);
         ArrayAdapter<String> listAdapter = getMuscle();
-        listView.setAdapter(listAdapter);
+        animationAdapter = new ScaleInAnimationAdapter(listAdapter);
+        animationAdapter.setAbsListView(listView);
+        listView.setAdapter(animationAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
