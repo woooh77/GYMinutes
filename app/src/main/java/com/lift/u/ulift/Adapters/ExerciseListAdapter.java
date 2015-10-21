@@ -34,7 +34,7 @@ public class ExerciseListAdapter extends ArrayAdapter<Exercises> {
         LinearLayout listItem = (LinearLayout) rowView.findViewById(R.id.listItem);
         listItem.setBackgroundColor(rowView.getResources().getColor(rowView.getResources().getIdentifier(exercises.getColor(), "color", getContext().getPackageName())));
         TextView exerciseName = (TextView) rowView.findViewById(R.id.exercise_name);
-        TextView sets = (TextView) rowView.findViewById(R.id.sets);
+        TextView sets = (TextView) rowView.findViewById(R.id.reps);
         TextView reps = (TextView) rowView.findViewById(R.id.reps);
         TextView restTimer = (TextView) rowView.findViewById(R.id.restTimer);
         exerciseName.setText(exercises.getExerciseName());

@@ -39,7 +39,7 @@ public class SelectRoutineAdapter extends ArrayAdapter<SelectRoutines> {
             if (summary != null || !summary.isEmpty())
                 text2.setText(summary);
             String color = routine_list.getColor();
-            if (color != null || !color.isEmpty()) {
+            if (color != null && !color.isEmpty()) {
                 Resources resources = view.getResources();
                 view.setBackgroundColor(resources.getColor(resources.getIdentifier(color, "color", view.getContext().getPackageName())));
                 text1.setTextColor(resources.getColor(R.color.white));

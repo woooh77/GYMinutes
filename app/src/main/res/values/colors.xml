@@ -30,4 +30,6 @@
     <color name="button_blue">#2C83BD</color>
     <color name="dark_grey">#4D5254</color>
     <color name="pinkisk_violet">#853EA3</color>
+    <color name="material_green">#3B9371</color>
+    <color name="material_orange">#C6401F</color>
 </resources>

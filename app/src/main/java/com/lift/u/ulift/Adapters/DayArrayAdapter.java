@@ -18,7 +18,7 @@ import antistatic.spinnerwheel.adapters.AbstractWheelTextAdapter;
  */
 public class DayArrayAdapter extends AbstractWheelTextAdapter {
     // Count of days to be shown
-    private final int daysCount = 500;
+    private final int daysCount = 365;
 
     // Calendar
     Calendar calendar;

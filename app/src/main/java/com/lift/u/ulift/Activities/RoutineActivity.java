@@ -217,6 +217,9 @@ public class RoutineActivity extends AppCompatActivity {
                         case 1:
                             intent = new Intent(getApplicationContext(), ProfileActivity.class);
                             break;
+                        case 4:
+                            intent = new Intent(getApplicationContext(), SettingsActivity.class);
+                            break;
                     }
                     if (intent != null) {
                         resideMenu.closeMenu();

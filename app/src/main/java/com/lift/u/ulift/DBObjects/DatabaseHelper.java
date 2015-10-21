@@ -19,6 +19,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         sdb.execSQL(DBConstants.create_excercises);
         sdb.execSQL(DBConstants.create_routines);
         sdb.execSQL(DBConstants.create_userWorkout);
+        sdb.execSQL(DBConstants.create_userSet);
     }
 
     @Override

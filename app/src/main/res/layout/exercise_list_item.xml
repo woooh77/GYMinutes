@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content" />
             <EditText
                 android:layout_weight="1"
-                android:id="@+id/sets"
+                android:id="@+id/reps"
                 android:gravity="center"
                 android:text="0"
                 android:textColor="@color/white"

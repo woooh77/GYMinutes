@@ -13,12 +13,21 @@
         android:label="@string/app_name"
         android:icon="@drawable/icon"
         android:theme="@style/CustomActionBarTheme" >
+
+        <activity
+            android:name=".Activities.SplashScreenActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <activity
             android:name=".Activities.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="com.lift.u.ulift.MAINACTIVITY" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
@@ -28,6 +37,10 @@
 
         <activity android:name=".Activities.RoutineActivity"
             android:label="@string/routines">
+        </activity>
+
+        <activity android:name=".Activities.SettingsActivity"
+            android:label="@string/settings">
         </activity>
 
         <activity android:name=".Activities.AddRoutineInfo"

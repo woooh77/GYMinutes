@@ -8,19 +8,58 @@ import android.os.Parcelable;
  */
 public class HealthCards implements Parcelable {
 
-    public HealthCards(String workout, int sets, String max, int weight_moved, String color) {
+    public HealthCards(String exercise_name, String workout, int sets, String max, float weight_moved, String color, int progress, int sets_today) { //, List<WorkoutHistory> setsComplete) {
+        this.exercise_name = exercise_name;
         this.workout = workout;
         this.sets = sets;
         this.max = max;
         this.weight_moved = weight_moved;
         this.color = color;
+        this.progress = progress;
+        this.sets_today = sets_today;
+//        this.setsComplete = setsComplete;
     }
-
+    public String exercise_name;
     public String workout;
     public int sets;
     public String max;
-    public int weight_moved;
+    public float weight_moved;
     public String color;
+    public int progress;
+    public int sets_today;
+//    public List<WorkoutHistory> setsComplete;
+
+    public int getSets_today() {
+        return sets_today;
+    }
+
+    public void setSets_today(int sets_today) {
+        this.sets_today = sets_today;
+    }
+
+    public String getExercise_name() {
+        return exercise_name;
+    }
+
+    public void setExercise_name(String exercise_name) {
+        this.exercise_name = exercise_name;
+    }
+
+//    public List<WorkoutHistory> getSetsComplete() {
+//        return setsComplete;
+//    }
+//
+//    public void setSetsComplete(List<WorkoutHistory> setsComplete) {
+//        this.setsComplete = setsComplete;
+//    }
+
+    public int getProgress() {
+        return progress;
+    }
+
+    public void setProgress(int progress) {
+        this.progress = progress;
+    }
 
     public String getColor() {
         return color;
@@ -54,11 +93,11 @@ public class HealthCards implements Parcelable {
         this.max = max;
     }
 
-    public int getWeight_moved() {
+    public float getWeight_moved() {
         return weight_moved;
     }
 
-    public void setWeight_moved(int weight_moved) {
+    public void setWeight_moved(float weight_moved) {
         this.weight_moved = weight_moved;
     }
 
@@ -67,8 +106,11 @@ public class HealthCards implements Parcelable {
         return "HealthCards{" +
                 "workout='" + workout + '\'' +
                 ", sets=" + sets +
-                ", max=" + max +
+                ", max='" + max + '\'' +
                 ", weight_moved=" + weight_moved +
+                ", color='" + color + '\'' +
+                ", progress=" + progress +
+                ", sets_today =" + sets_today +
                 '}';
     }
 
@@ -79,19 +121,28 @@ public class HealthCards implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(exercise_name);
         parcel.writeString(workout);
         parcel.writeInt(sets);
         parcel.writeString(max);
-        parcel.writeInt(weight_moved);
+        parcel.writeFloat(weight_moved);
         parcel.writeString(color);
+        parcel.writeInt(progress);
+        parcel.writeInt(sets_today);
+//        parcel.writeList(setsComplete);
     }
 
     public HealthCards(Parcel in) {
+        exercise_name = in.readString();
         workout = in.readString();
         sets = in.readInt();
         max = in.readString();
-        weight_moved = in.readInt();
+        weight_moved = in.readFloat();
         color = in.readString();
+        progress = in.readInt();
+        sets_today = in.readInt();
+//        setsComplete = new ArrayList<>();
+//        in.readList(setsComplete, null);
     }
 
     public static final Parcelable.Creator<HealthCards> CREATOR = new Parcelable.Creator<HealthCards>() {

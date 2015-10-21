@@ -3,31 +3,30 @@ package com.lift.u.ulift.Activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.lift.u.ulift.R;
-import com.parse.ParseUser;
 import com.special.ResideMenu.ResideMenu;
 import com.special.ResideMenu.ResideMenuItem;
 
 /**
- * Created by balavigneshr on 8/24/15.
+ * Created by balavigneshr on 10/12/15.
  */
-public class ProfileActivity extends AppCompatActivity {
+public class SettingsActivity extends AppCompatActivity {
+    private AppCompatDelegate mDelegate;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.profile_activity);
-        getSupportActionBar().setTitle(R.string.profile);
+        setContentView(R.layout.settings_layout);
+        getSupportActionBar().setTitle(R.string.settings);
         buildDrawer();
-    }
-
-    public void logout(View v) {
-        ParseUser.logOut();
-        this.deleteDatabase("uLift");
-        Intent home = new Intent(this, MainActivity.class);
-        startActivity(home);
+        ListView lv = (ListView) findViewById(R.id.listSettings);
+        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.list_settings_item);
+        lv.setAdapter(adapter);
     }
 
     public void buildDrawer() {
@@ -49,11 +48,11 @@ public class ProfileActivity extends AppCompatActivity {
                         case 0:
                             intent = new Intent(getApplicationContext(), MainActivity.class);
                             break;
+                        case 1:
+                            intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                            break;
                         case 3:
                             intent = new Intent(getApplicationContext(), RoutineActivity.class);
-                            break;
-                        case 4:
-                            intent = new Intent(getApplicationContext(), SettingsActivity.class);
                             break;
                     }
                     if (intent != null) {

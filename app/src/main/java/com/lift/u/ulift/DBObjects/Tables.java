@@ -46,5 +46,22 @@ public class Tables {
         public static final String WorkoutName = "WorkoutName";
         public static final String UserId = "UserId";
         public static final String table_name = "UserWorkout";
+        public static final String progress = "Progress";
+    }
+
+    public static abstract class UserSet implements BaseColumns {
+        public static final String Date = "Date";
+        public static final String ExerciseName = "ExerciseName";
+        public static final String ExerciseNumber = "ExerciseNumber";
+        public static final String MajorMuscle = "MajorMuscle";
+        public static final String Muscle = "Muscle";
+        public static final String Reps = "Reps";
+        public static final String RoutineName = "RoutineName";
+        public static final String TimeStamp = "TimeStamp";
+        public static final String Weight = "Weight";
+        public static final String WorkoutName = "WorkoutName";
+        public static final String UserId = "UserId";
+        public static final String Sets = "Sets";
+        public static final String table_name = "UserSet";
     }
 }

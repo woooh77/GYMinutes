@@ -26,6 +26,7 @@ import com.lift.u.ulift.DBObjects.FillLocalFromParse;
 import com.lift.u.ulift.DBObjects.Tables;
 import com.lift.u.ulift.R;
 import com.lift.u.ulift.models.HealthCards;
+import com.lift.u.ulift.models.WorkoutHistory;
 import com.nhaarman.listviewanimations.appearance.simple.ScaleInAnimationAdapter;
 import com.parse.ParseUser;
 import com.parse.ui.ParseLoginBuilder;
@@ -37,6 +38,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import antistatic.spinnerwheel.AbstractWheel;
 
@@ -53,6 +55,9 @@ public class MainActivity extends AppCompatActivity {
     SharedPreferences activity;
     AbstractWheel day;
     ScaleInAnimationAdapter animationAdapter;
+    float weights_moved_today = 0.0f;
+    int sets_today = 0;
+    String weight_max_today = "";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -68,7 +73,12 @@ public class MainActivity extends AppCompatActivity {
         DayArrayAdapter dayAdapter = new DayArrayAdapter(this, calendar);
         day.setViewAdapter(dayAdapter);
         day.setCurrentItem(dayAdapter.getToday());
-
+        day.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.e("PARSE", "Date" + day.getCurrentItem());
+            }
+        });
         adapter = new HealthCardAdapter(this, list);
         final ListView cards = (ListView) findViewById(R.id.cards);
         animationAdapter = new ScaleInAnimationAdapter(adapter);
@@ -82,6 +92,8 @@ public class MainActivity extends AppCompatActivity {
                 b.putParcelableArrayList("CARDS", list);
                 intent.putExtras(b);
                 intent.putExtra("I", i);
+                intent.putExtra("ROUTINE", routine);
+                intent.putExtra("WORKOUT", workout);
                 startActivity(intent);
             }
         });
@@ -94,8 +106,8 @@ public class MainActivity extends AppCompatActivity {
 //        dateText = (TextView) findViewById(R.id.date);
 //        getCurrentDate();
 //
-//        Button previous = (Button) findViewById(R.id.left);
-//        previous.setOnClickListener(new View.OnClickListener() {
+//        Button bottom_up = (Button) findViewById(R.id.left);
+//        bottom_up.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
 //                String dateToParse = dateText.getText().toString();
@@ -111,8 +123,8 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 //
-//        Button next = (Button) findViewById(R.id.right);
-//        next.setOnClickListener(new View.OnClickListener() {
+//        Button bottom_down = (Button) findViewById(R.id.right);
+//        bottom_down.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
 //                String dateToParse = dateText.getText().toString();
@@ -151,10 +163,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.d("PARSE", "Returned activity with result code " + resultCode);
         LinearLayout homescreen = (LinearLayout) findViewById(R.id.homescreen);
         homescreen.setVisibility(View.GONE);
-        Log.d("PARSE", "1");
         if (requestCode == LOGIN_REQUEST) {
             if (resultCode == RESULT_OK) {
                 ProgressActivity progressActivity = (ProgressActivity) findViewById(R.id.progressActivity);
@@ -187,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
         SQLiteDatabase db = new DatabaseHelper(this).getReadableDatabase();
         String[] values = {routine, workout};
         Cursor c = db.rawQuery("SELECT " + Tables.UserWorkout.ExerciseName + ", " + Tables.UserWorkout.Sets + ", " + Tables.UserWorkout.MajorMuscle
-                + ", " + Tables.UserWorkout.Reps + ", " + Tables.UserWorkout.RestTimer + " from " + Tables.UserWorkout.table_name
+                + ", " + Tables.UserWorkout.Reps + ", " + Tables.UserWorkout.RestTimer + ", " + Tables.UserWorkout.progress + " from " + Tables.UserWorkout.table_name
                 + " where " + Tables.UserWorkout.RoutineName + "=? and " + Tables.UserWorkout.WorkoutName + "=?", values);
         if (c != null) {
             c.moveToFirst();
@@ -195,13 +205,38 @@ public class MainActivity extends AppCompatActivity {
                 String exercise_name = c.getString(c.getColumnIndexOrThrow(Tables.UserWorkout.ExerciseName));
                 String sets = c.getString(c.getColumnIndexOrThrow(Tables.UserWorkout.Sets));
                 String color = c.getString(c.getColumnIndexOrThrow(Tables.UserWorkout.MajorMuscle));
-                list.add(new HealthCards(exercise_name, Integer.parseInt(sets), "100", 100, color));
+                int progress = c.getInt(c.getColumnIndexOrThrow(Tables.UserWorkout.progress));
+                List<WorkoutHistory> setsComplete = new ArrayList<>();
+                getSetsFromDB(exercise_name);
+                list.add(new HealthCards(exercise_name, workout, Integer.parseInt(sets), "100", weights_moved_today, color, progress, sets_today));
                 c.moveToNext();
             }
         }
         adapter.notifyDataSetChanged();
         animationAdapter.notifyDataSetChanged();
+    }
 
+    private void getSetsFromDB(String exercise_name) {
+        weights_moved_today = 0.0f;
+        sets_today = 0;
+        weight_max_today = "";
+        List<WorkoutHistory> setsComplete = new ArrayList<>();
+        SQLiteDatabase db = new DatabaseHelper(this).getReadableDatabase();
+        String[] values = {routine, exercise_name};
+        Cursor c = db.rawQuery("SELECT " + Tables.UserSet.Weight + " from " + Tables.UserSet.table_name
+                + " where " + Tables.UserSet.RoutineName + "=? and "+ Tables.UserSet.ExerciseName + "=?", values);
+        if (c != null) {
+            c.moveToFirst();
+            for (int i = 0; i < c.getCount(); i++) {
+//                String reps = c.getString(c.getColumnIndexOrThrow(Tables.UserSet.Reps));
+//                String sets = c.getString(c.getColumnIndexOrThrow(Tables.UserSet.Sets));
+                String weight = c.getString(c.getColumnIndexOrThrow(Tables.UserSet.Weight));
+                weights_moved_today = weights_moved_today + Float.parseFloat(weight);
+                sets_today = sets_today + 1;
+                //setsComplete.add(new WorkoutHistory(Integer.parseInt(reps), Float.parseFloat(weight), Integer.parseInt(sets)));
+                c.moveToNext();
+            }
+        }
     }
 
     public void buildDrawer() {
@@ -226,6 +261,9 @@ public class MainActivity extends AppCompatActivity {
                             break;
                         case 3:
                             intent = new Intent(getApplicationContext(), RoutineActivity.class);
+                            break;
+                        case 4:
+                            intent = new Intent(getApplicationContext(), SettingsActivity.class);
                             break;
                     }
                     if (intent != null) {

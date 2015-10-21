@@ -34,7 +34,7 @@ public class WorkoutHistoryAdapter extends ArrayAdapter<WorkoutHistory> {
         TextView reps = (TextView) rowView.findViewById(R.id.reps);
         TextView weight = (TextView) rowView.findViewById(R.id.weight);
         id.setText(String.valueOf(position + 1));
-        reps.setText(Integer.toString(exercises.getSets()) + " Reps");
+        reps.setText(Integer.toString(exercises.getReps()) + " Reps");
         weight.setText(Float.toString(exercises.getWeight()) + " Lbs");
         return rowView;
     }
